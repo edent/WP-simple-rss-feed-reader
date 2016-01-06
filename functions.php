@@ -7,6 +7,7 @@
  */
 function SimplRssfirstWords($string, $words = 100)
 {
+/*
     $string = strip_tags($string, '<p><a><br><li><ul>');
     $wo = explode(" ", $string);
     $c = 0;
@@ -17,6 +18,8 @@ function SimplRssfirstWords($string, $words = 100)
             $return .= " " . $piece;
     }
     return $return;
+*/
+    return $string;
 }
 
 /**
@@ -75,7 +78,7 @@ function SimplRssParse($xml, $limit = 10, $hide_description = 0, $hide_url = 0, 
         if ($hide_url == 0) {
             $return .= '<li class="wp-simple-rss-item"><h3 class="wp-simple-rss-h3"><a href="' . $link . '" target="_blank" title="' . ($titel) . '" class="wp-simple-rss-link">' . ($titel) . '</a></h3>';
         } else {
-            $return .= '<li class="wp-simple-rss-item"><h3 class="wp-simple-rss-h3">' . ($titel) . '</h3>';
+            $return .= '<li class="wp-simple-rss-item">';
         }
         if ($show_date == 1 && !empty($date)) {
             $return .= '<span class="wp-simple-rss-date">' . $date . '</span>';
@@ -93,10 +96,11 @@ function SimplRssParse($xml, $limit = 10, $hide_description = 0, $hide_url = 0, 
 
             $return .= '<span class="wp-simple-rss-description">' . $img . SimplRssfirstWords($item->description, (int)($amount_of_words + 1)) . '</span>';
         }
-        $return .= '</li>';
+        $return .= '<hr></li>';
 
         if ($i == $limit) break;
     }
-    $return .= "</ul>";
-    return $return;
+    $disclaimer = '<a href="http://www.amazon.co.uk/gp/registry/wishlist/13GFCFR2B2IX4" title="This blog is a participant in the Amazon EU Associates Programme, an affiliate advertising programme designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.co.uk">View Terence\'s Wishlist on Amazon</a>.';
+    $return .= "</ul>".$disclaimer;
+    return $disclaimer."<hr>".$return;
 }
